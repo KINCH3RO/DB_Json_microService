@@ -12,21 +12,21 @@ app.get('/', (req, res) => {
 
 
 app.put('/dbUpdate', (req, res) => {
- 
+
     steName = req.query.ste;
-    console.log("updating db "+steName)
-    
+    console.log("updating db " + steName)
+
     if (steName != "bahij" && steName != "perle") {
         res.json({ errorCode: 404, desc: "not found" })
     } else {
 
-        let json =req.body;
-        console.log(json);
-        let filename =__dirname + "//jsonDB/" + steName + ".json";
+        let json = req.body;
+
+        let filename = __dirname + "//jsonDB/" + steName + ".json";
         fs.writeFile(filename, JSON.stringify(json), (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
-          });
+        });
         res.end("success");
     }
 
@@ -36,20 +36,20 @@ app.put('/dbUpdate', (req, res) => {
 app.get('/dbGet', (req, res) => {
 
     steName = req.query.ste;
-    console.log("getting db "+steName)
+    console.log("getting db " + steName)
     if (steName != "bahij" && steName != "perle") {
         res.json({ errorCode: 404, desc: "not found" })
     } else {
-        fs.readFile(__dirname + "//jsonDB/" + steName + ".json",'utf8',(err,txt)=>{
-              res.json(JSON.parse(txt));
+        fs.readFile(__dirname + "//jsonDB/" + steName + ".json", 'utf8', (err, txt) => {
+            res.json(JSON.parse(txt));
         })
-      
+
     }
 })
 
 
 app.get('/appAuth', (req, res) => {
-    console.log("getting  auth "+steName)
+    console.log("getting  auth " + steName)
     res.sendFile(__dirname + "//jsonDB/authorisation.json");
 })
 
